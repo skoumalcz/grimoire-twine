@@ -4,6 +4,7 @@ import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
+import com.android.build.gradle.api.AndroidSourceSet
 import com.android.build.gradle.api.BaseVariant
 import org.gradle.api.DomainObjectSet
 import org.gradle.api.Plugin
@@ -48,6 +49,13 @@ class TwineStringsGeneratorPlugin : Plugin<Project> {
         variants.forEach { variant ->
             val outputDirectory = project.file("${project.buildDir}/generated/res/twine/${variant.buildType.name}")
             val twineFile = project.file(config.twineFile)
+
+            variant.sourceSets
+                .filterIsInstance(AndroidSourceSet::class.java)
+                .lastOrNull()
+                ?.apply {
+                    res.srcDir(outputDirectory)
+                }
 
             val taskName = "generateStringsFor${variant.name.capitalize()}"
             val task = project.tasks.create(taskName, StringsGeneratingTask::class.java).apply {
