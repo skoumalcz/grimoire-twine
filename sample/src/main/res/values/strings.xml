@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Sample</string>
+
+    <string name="reference">@string/example_string</string>
 </resources>
