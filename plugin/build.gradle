@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:${versions.gradlePlugin}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+    }
+}
+
+plugins {
+    id "java-gradle-plugin"
+    id 'maven-publish'
+}
+
+apply plugin: 'groovy'
+apply plugin: 'kotlin'
+
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+repositories {
+    google()
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
+    compile "com.android.tools.build:gradle:${versions.gradlePlugin}"
+}
+
+group = "com.skoumal.twinestringsgenerator"
+version = "0.1"
+
+gradlePlugin {
+    plugins {
+        create("TwineStringsGeneratorPlugin") {
+            id = "com.skoumal.twinestringsgenerator.plugin"
+            implementationClass = "com.skoumal.twinestringsgenerator.TwineStringsGeneratorPlugin"
+        }
+    }
+}
