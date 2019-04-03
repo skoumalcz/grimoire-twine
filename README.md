@@ -38,3 +38,25 @@ twineStringsGenerator {
     args = ["-itranslated", "-u", "-tandroid"]
 }
 ```
+
+Module build.gradle.kts
+```kotlin
+plugins {
+    ...
+    id("com.skoumal.twinestringsgenerator.plugin")
+    ...
+}
+
+twine {
+    //path to your twine file, mandatory
+    twineFile = "strings.txt"
+    //name of generated string file(s), defaults to "strings.xml"
+    outputFileName = "strings.xml"
+    //default language which will be placed to values directory, defaults to "en"
+    defaultLanguage = "en"
+    //format of generated files, defaults to "android"
+    format = "android"
+    //additional arguments you want to pass to twine executable, defaults to empty list
+    args = ["-itranslated", "-u", "-tandroid"]
+}
+```
