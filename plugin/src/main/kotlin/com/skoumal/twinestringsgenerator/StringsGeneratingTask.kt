@@ -29,6 +29,7 @@ open class StringsGeneratingTask : DefaultTask() {
         println("> Generating strings from ${sourceFile.absolutePath}")
 
         try {
+            project.delete(outputDir)
 
             val command = listOf(
                 "twine", "generate-all-localization-files",
