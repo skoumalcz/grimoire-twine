@@ -31,7 +31,13 @@ open class StringsGeneratingTask : DefaultTask() {
         try {
             project.delete(outputDir)
 
-            val command = listOf(
+            val isWindows = System.getProperties()["os.name"]
+                .toString()
+                .toLowerCase()
+                .contains("windows")
+
+            val commandPrepend = if (isWindows) listOf("cmd", "/c") else emptyList()
+            val command = commandPrepend + listOf(
                 "twine", "generate-all-localization-files",
                 "-n$outputFileName",
                 "-f$format",
