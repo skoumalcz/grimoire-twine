@@ -1,3 +1,0 @@
-[[General]]
-	[example_string]
-		en = Example string
