@@ -3,7 +3,7 @@ package com.skoumal.grimoire.twine.tasks
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 
-class TwineTask : DefaultTask() {
+abstract class TwineTask : DefaultTask() {
 
     companion object {
 
