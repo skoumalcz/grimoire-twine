@@ -20,9 +20,6 @@ abstract class TwineTask : DefaultTask() {
     abstract val fileName: Property<String>
 
     @get:Input
-    abstract val defaultLanguage: Property<String>
-
-    @get:Input
     abstract val format: Property<String>
 
     @get:Input
@@ -85,13 +82,13 @@ abstract class TwineTask : DefaultTask() {
 
     companion object {
 
+        const val name = "generateTwineResources"
+
         fun register(
             project: Project,
             extension: TwineExtension,
-            binaryTask: TwineBinaryTask,
             output: File
         ) {
-            val name = "generateTwineResources"
             val klass = TwineTask::class.java
             val task = project.tasks.findByName(name)
 
@@ -100,10 +97,9 @@ abstract class TwineTask : DefaultTask() {
             } else {
                 project.tasks.create(name, klass)
             }.also {
-                it.dependsOn(binaryTask)
+                it.dependsOn(TwineBinaryTask.name)
 
                 it.fileName.set(extension.outputName.getOrElse("values.xml"))
-                it.defaultLanguage.set(extension.defaultLanguage.getOrElse("en"))
                 it.format.set(extension.format.getOrElse("android"))
                 it.args.set(extension.args.getOrElse(emptyList()))
                 it.source.set(project.file(extension.file))

@@ -45,14 +45,16 @@ abstract class TwineBinaryTask : DefaultTask() {
 
     companion object {
 
-        fun register(project: Project): TwineBinaryTask {
-            return project.tasks.create("twineBinary", TwineBinaryTask::class.java) {
+        const val name = "findTwineBinary"
+
+        fun register(project: Project) {
+            project.tasks.create(name, TwineBinaryTask::class.java) {
                 it.binary.set(project.buildFile("twine-binary.rip"))
             }
         }
 
         fun get(project: Project): Array<String> {
-            val task = project.tasks.getByName("twineBinary") as TwineBinaryTask
+            val task = project.tasks.getByName(name) as TwineBinaryTask
             return task.getBinaryArgs()
         }
 
