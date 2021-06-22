@@ -10,10 +10,12 @@ abstract class TwineTask : DefaultTask() {
         const val name = "assembleTwineResources"
 
         fun register(project: Project) {
-            project.tasks.create(name, TwineTask::class.java) {
+            val task = project.tasks.create(name, TwineTask::class.java) {
                 it.dependsOn(TwineRenameTask.name)
                 it.group = "twine"
             }
+
+            project.tasks.findByName("preBuild")?.dependsOn(task)
         }
 
     }

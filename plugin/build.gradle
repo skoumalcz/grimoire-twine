@@ -27,12 +27,9 @@ repositories {
 dependencies {
     compileOnly gradleApi()
     compileOnly localGroovy()
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
     compileOnly "com.android.tools.build:gradle:${versions.gradlePlugin}"
 }
-
-group = "com.skoumal.grimoire.twine"
-version = "1.0.0"
 
 gradlePlugin {
     plugins {

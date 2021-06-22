@@ -27,6 +27,7 @@ fun File.requireDirectory() = apply {
 }
 
 fun File.requireFile() = apply {
+    parentFile.requireDirectory()
     if (!isFile) {
         deleteRecursively()
         createNewFile()

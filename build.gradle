@@ -1,6 +1,6 @@
 buildscript {
     ext.versions = [
-            'kotlin'       : '1.5.10',
+            'kotlin'       : '1.4.32',
             'gradlePlugin' : '7.0.0-beta04'
     ]
 

@@ -39,7 +39,7 @@ class GeneratorPlugin : Plugin<Project> {
         val outputDir = target.generatedResDir()
         baseExtension.sourceSets.forEach {
             target.logger.debug { "Added directory ${outputDir.absoluteFile} to res sources" }
-            it.res.srcDir(target.files(outputDir).builtBy(TwineTask.name))
+            it.res.srcDir(outputDir)
         }
 
         target.logger.debug { TwineExtension.toString(extension) }
