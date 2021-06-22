@@ -4,20 +4,31 @@ import org.gradle.api.Project
 import java.io.File
 
 fun Project.generatedResDir() =
-    buildDir("generated/res/twine")
+    generatedDir("res/twine")
+
+// ---
+
+fun Project.generatedDir(name: String) =
+    File(buildDir, "generated/$name").requireDirectory()
 
 fun Project.buildDir(name: String) =
-    File(buildDir, "twine/$name").also {
-        if (!it.isDirectory) {
-            it.deleteRecursively()
-            it.mkdirs()
-        }
-    }
+    File(buildDir, "twine/$name").requireDirectory()
 
 fun Project.buildFile(name: String) =
-    File(buildDir, "twine/$name").also {
-        if (!it.isFile) {
-            it.deleteRecursively()
-            it.createNewFile()
-        }
+    File(buildDir, "twine/$name").requireFile()
+
+// ---
+
+fun File.requireDirectory() = apply {
+    if (!isDirectory) {
+        deleteRecursively()
+        mkdirs()
     }
+}
+
+fun File.requireFile() = apply {
+    if (!isFile) {
+        deleteRecursively()
+        createNewFile()
+    }
+}
