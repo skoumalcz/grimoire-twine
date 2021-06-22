@@ -4,8 +4,8 @@ import com.android.build.gradle.BaseExtension
 import com.skoumal.grimoire.twine.extensions.TwineExtension
 import com.skoumal.grimoire.twine.files.generatedResDir
 import com.skoumal.grimoire.twine.tasks.TwineBinaryTask
+import com.skoumal.grimoire.twine.tasks.TwineGenerateTask
 import com.skoumal.grimoire.twine.tasks.TwineRenameTask
-import com.skoumal.grimoire.twine.tasks.TwineTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -40,7 +40,7 @@ class GeneratorPlugin : Plugin<Project> {
         }
 
         TwineBinaryTask.register(target)
-        TwineTask.register(target, extension, outputDir)
+        TwineGenerateTask.register(target, extension, outputDir)
         TwineRenameTask.register(target, extension, outputDir)
     }
 

@@ -37,7 +37,7 @@ abstract class TwineRenameTask : DefaultTask() {
             val name = "renameTwineResources"
             val klass = TwineRenameTask::class.java
             project.tasks.create(name, klass) {
-                it.dependsOn(TwineTask.name)
+                it.dependsOn(TwineGenerateTask.name)
 
                 it.language.set(extension.defaultLanguage.getOrElse("en"))
                 it.input.set(output)

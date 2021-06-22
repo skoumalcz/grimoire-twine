@@ -12,7 +12,7 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
-abstract class TwineTask : DefaultTask() {
+abstract class TwineGenerateTask : DefaultTask() {
 
     // >>- inputs
 
@@ -89,11 +89,11 @@ abstract class TwineTask : DefaultTask() {
             extension: TwineExtension,
             output: File
         ) {
-            val klass = TwineTask::class.java
+            val klass = TwineGenerateTask::class.java
             val task = project.tasks.findByName(name)
 
             if (task != null) {
-                task as TwineTask
+                task as TwineGenerateTask
             } else {
                 project.tasks.create(name, klass)
             }.also {
