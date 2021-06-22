@@ -1,6 +1,7 @@
 package com.skoumal.grimoire.twine.tasks
 
 import com.skoumal.grimoire.twine.extensions.TwineExtension
+import com.skoumal.grimoire.twine.tool.debug
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.file.RegularFileProperty
@@ -24,6 +25,12 @@ abstract class TwineRenameTask : DefaultTask() {
         val input = input.get().asFile
         val target = File(input, "values-$language")
         val result = File(input, "values")
+
+        project.logger.debug {
+            if (target.exists()) "Renaming from \"values-$language\" to \"values\""
+            else "Renaming not necessary, \"values-$language\" doesn't exist"
+        }
+
         target.renameTo(result)
     }
 

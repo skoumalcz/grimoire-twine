@@ -1,6 +1,7 @@
 package com.skoumal.grimoire.twine.tasks
 
 import com.skoumal.grimoire.twine.extensions.TwineExtension
+import com.skoumal.grimoire.twine.tool.debug
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.file.RegularFileProperty
@@ -38,14 +39,10 @@ abstract class TwineGenerateTask : DefaultTask() {
     @TaskAction
     fun onRunTask() {
         val twine = getTwine()
-        if (logger.isDebugEnabled) {
-            logger.debug("Twine command: \"${twine.joinToString(separator = " ")}\"")
-        }
+        logger.debug { "Twine command: \"${twine.joinToString(separator = " ")}\"" }
 
         val command = compileCommand()
-        if (logger.isDebugEnabled) {
-            logger.debug("Twine command args: ${command.joinToString(separator = " ")}")
-        }
+        logger.debug { "Twine command args: ${command.joinToString(separator = " ")}" }
 
         val result = project.exec {
             it.commandLine(*twine, *command)
@@ -90,13 +87,7 @@ abstract class TwineGenerateTask : DefaultTask() {
             output: File
         ) {
             val klass = TwineGenerateTask::class.java
-            val task = project.tasks.findByName(name)
-
-            if (task != null) {
-                task as TwineGenerateTask
-            } else {
-                project.tasks.create(name, klass)
-            }.also {
+            project.tasks.create(name, klass).also {
                 it.dependsOn(TwineBinaryTask.name)
                 it.group = "twine"
 

@@ -1,6 +1,7 @@
 package com.skoumal.grimoire.twine.tasks
 
 import com.skoumal.grimoire.twine.files.buildFile
+import com.skoumal.grimoire.twine.tool.debug
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.file.RegularFileProperty
@@ -24,20 +25,28 @@ abstract class TwineBinaryTask : DefaultTask() {
         }
         val textLocation = location.joinToString(separator = "\n")
 
+        if (project.logger.isDebugEnabled) {
+            val inlineLocation = textLocation.replace("\n", " ")
+            project.logger.debug("Writing \"$inlineLocation\" for OS \"$osName\"")
+        }
+
         binary.get().asFile.writeText(textLocation)
     }
 
     private fun getBinaryArgs(): Array<String> {
+        project.logger.debug { "Reading cached binary location" }
         return binary.get().asFile.readText().split('\n').toTypedArray()
     }
 
     // ---
 
     private fun getWindowsBinary(): Array<String> {
+        project.logger.debug { "Found Windows configuration" }
         return arrayOf("cmd", "/c", "twine")
     }
 
     private fun getUnixBinary(): Array<String> {
+        project.logger.debug { "Found Unix configuration" }
         return arrayOf("twine")
     }
 

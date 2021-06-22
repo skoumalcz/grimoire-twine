@@ -49,6 +49,21 @@ interface TwineExtension {
             return project.extensions.create("twine", TwineExtension::class.java)
         }
 
+        fun toString(extension: TwineExtension): String {
+            val outputName = extension.outputName.orNull
+            val defaultLanguage = extension.defaultLanguage.orNull
+            val format = extension.format.orNull
+            val file = extension.file.orNull
+            val args = extension.args.orNull?.joinToString()
+            return "TwineExtension[" +
+                    "outputName=$outputName," +
+                    "defaultLanguage=$defaultLanguage," +
+                    "format=$format," +
+                    "file=$file," +
+                    "args={$args}" +
+                    "]"
+        }
+
     }
 
 }
