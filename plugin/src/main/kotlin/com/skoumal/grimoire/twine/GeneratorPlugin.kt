@@ -6,6 +6,7 @@ import com.skoumal.grimoire.twine.files.generatedResDir
 import com.skoumal.grimoire.twine.tasks.TwineBinaryTask
 import com.skoumal.grimoire.twine.tasks.TwineGenerateTask
 import com.skoumal.grimoire.twine.tasks.TwineRenameTask
+import com.skoumal.grimoire.twine.tasks.TwineTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -36,12 +37,13 @@ class GeneratorPlugin : Plugin<Project> {
         val outputDir = target.generatedResDir()
         baseExtension.sourceSets.forEach {
             target.logger.info("Added directory ${outputDir.absoluteFile} to res sources")
-            it.res.srcDir(outputDir)
+            it.res.srcDir(target.files(outputDir).builtBy(TwineTask.name))
         }
 
         TwineBinaryTask.register(target)
         TwineGenerateTask.register(target, extension, outputDir)
         TwineRenameTask.register(target, extension, outputDir)
+        TwineTask.register(target)
     }
 
 }

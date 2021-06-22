@@ -29,15 +29,17 @@ abstract class TwineRenameTask : DefaultTask() {
 
     companion object {
 
+        const val name = "renameTwineResources"
+
         fun register(
             project: Project,
             extension: TwineExtension,
             output: File
         ) {
-            val name = "renameTwineResources"
             val klass = TwineRenameTask::class.java
             project.tasks.create(name, klass) {
                 it.dependsOn(TwineGenerateTask.name)
+                it.group = "twine"
 
                 it.language.set(extension.defaultLanguage.getOrElse("en"))
                 it.input.set(output)

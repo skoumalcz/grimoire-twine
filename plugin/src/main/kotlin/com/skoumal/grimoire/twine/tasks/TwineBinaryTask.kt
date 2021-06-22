@@ -49,6 +49,7 @@ abstract class TwineBinaryTask : DefaultTask() {
 
         fun register(project: Project) {
             project.tasks.create(name, TwineBinaryTask::class.java) {
+                it.group = "twine"
                 it.binary.set(project.buildFile("twine-binary.rip"))
             }
         }

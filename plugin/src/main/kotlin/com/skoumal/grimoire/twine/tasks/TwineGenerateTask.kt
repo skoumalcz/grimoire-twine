@@ -98,6 +98,7 @@ abstract class TwineGenerateTask : DefaultTask() {
                 project.tasks.create(name, klass)
             }.also {
                 it.dependsOn(TwineBinaryTask.name)
+                it.group = "twine"
 
                 it.fileName.set(extension.outputName.getOrElse("values.xml"))
                 it.format.set(extension.format.getOrElse("android"))
