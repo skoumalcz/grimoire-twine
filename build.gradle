@@ -1,9 +1,4 @@
 buildscript {
-    ext.versions = [
-            'kotlin'       : '1.4.32',
-            'gradlePlugin' : '7.0.0-beta04'
-    ]
-
     repositories {
         google()
         jcenter()
@@ -12,14 +7,12 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:${versions.gradlePlugin}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath "com.android.tools.build:gradle:7.2.0-beta01"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         classpath 'com.vanniktech:gradle-maven-publish-plugin:0.14.2'
-        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:1.4.20'
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:1.6.10'
     }
 }
-
-apply plugin: 'kotlin'
 
 allprojects {
     repositories {
@@ -28,12 +21,4 @@ allprojects {
         mavenLocal()
         mavenCentral()
     }
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
-}
-
-sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
 }

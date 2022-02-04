@@ -19,14 +19,15 @@ abstract class TwineBinaryTask : DefaultTask() {
     @TaskAction
     fun onFindBinary() {
         val osName = System.getProperties()["os.name"].toString()
+        project.logger.debug { "OS name is \"$osName\"" }
         val location = when {
             osName.isWindows -> getWindowsBinary()
             else -> getUnixBinary()
         }
-        val textLocation = location.joinToString(separator = "\n")
+        val textLocation = location.joinToString(separator = System.lineSeparator())
 
         if (project.logger.isDebugEnabled) {
-            val inlineLocation = textLocation.replace("\n", " ")
+            val inlineLocation = textLocation.replace(System.lineSeparator(), " ")
             project.logger.debug("Writing \"$inlineLocation\" for OS \"$osName\"")
         }
 
@@ -35,7 +36,7 @@ abstract class TwineBinaryTask : DefaultTask() {
 
     private fun getBinaryArgs(): Array<String> {
         project.logger.debug { "Reading cached binary location" }
-        return binary.get().asFile.readText().split('\n').toTypedArray()
+        return binary.get().asFile.readText().split(System.lineSeparator()).toTypedArray()
     }
 
     // ---
